@@ -1,0 +1,55 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext {
+        // Sdk and tools
+        compileSdkVersion = 28
+
+        // App dependencies
+        okbuckVersion = '0.47.1'
+    }
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath "com.uber:okbuck:$okbuckVersion"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+apply plugin: 'com.uber.okbuck'
+
+okbuck {
+    target = "android-$compileSdkVersion"
+    buildToolVersion = "28.0.3"
+
+    lint {
+        disabled = true
+    }
+
+    ruleOverrides {
+        override{
+            nativeRuleName = "android_binary"
+            importLocation = "//buck-rules:custom_android_binary.bzl"
+            newRuleName = "custom_android_binary"
+        }
+    }
+    buckBinary = "com.github.facebook:buck:e1fec3196532dc58cf06461ac0f3020f63f570bc@pex"
+}

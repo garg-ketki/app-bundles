@@ -1,0 +1,227 @@
+import os, re
+
+
+def merge_maps(**res_maps):
+    result = {}
+    for path, res_map in res_maps.iteritems():
+        for key in res_map:
+            if key in result and result[key] != res_map[key]:
+                dirname = os.path.dirname(key)
+                basename = os.path.basename(key)
+                new_key = '/'.join([dirname, path.replace('/', '_') + '_' + basename])
+                result[new_key] = res_map[key]
+            else:
+                result[key] = res_map[key]
+
+    return result
+
+
+def res_glob(glob_specs):
+    """
+    Given a list of tuples, the form of (relative-sub-directory, glob-pattern),
+    return a dict of sub-directory relative paths to full paths. Useful for
+    defining res/asset globs of android_resource rules. This automatically handles
+    path name conflicts by prefixing such keys with the parent dir path.
+    """
+    results = {}
+
+    for dirpath, glob_pattern in glob_specs:
+        results[dirpath] = subdir_glob([(dirpath, glob_pattern)],
+        excludes=[])
+
+    return merge_maps(**results)
+
+
+def okbuck_aidl(
+        name,
+        aidls,
+        imports,
+        manifest=None,
+        deps=[],
+    ):
+    gen = []
+    for aidl_file in glob(["{}/**/*.aidl".format(aidls)]):
+        rule_name = '{}__'.format(name) + re.sub(r'^.*/([^/]+)\.aidl$', r'\1', aidl_file)
+        gen.append(':' + rule_name)
+        gen_aidl(
+            name = rule_name,
+            aidl = aidl_file,
+            import_path = imports,
+        )
+
+    android_library(
+        name = name,
+        srcs = gen,
+        manifest = manifest,
+        deps = deps
+    )
+
+
+def toLocation(dep):
+    return "$(location {})".format(dep)
+
+def okbuck_lint(
+        variant,
+        manifest,
+        srcs,
+        resources,
+        aar_deps,
+        custom_lints,
+        lint_options
+    ):
+    name = "lint_{}".format(variant)
+
+    has_srcs = len(srcs) > 0
+
+    bash = 'AAR_DEPS="{}"; '.format(";".join([toLocation(aar_dep + "#aar_unzip") for aar_dep in aar_deps]))
+
+    bash += 'for aar in ${AAR_DEPS//;/ }; do if [[ -e $aar/lint.jar ]]; then PREBUILT_AAR_LINT_JARS="$aar/lint.jar:$PREBUILT_AAR_LINT_JARS"; fi ; done; '
+
+    bash += "export ANDROID_LINT_JARS=\"$PREBUILT_AAR_LINT_JARS{}\"; PROJECT_ROOT=`echo '{}' | sed 's|buck-out.*||'`; ".format(':'.join(map(toLocation, custom_lints)), toLocation(manifest))
+
+    if has_srcs:
+        bash += "CP_FILE=`sed 's/@//' <<< $(@classpath_abi :src_{})`; ".format(variant)
+        bash += 'sed -i.bak -e "s|$PROJECT_ROOT||g" -e "s|\'||g" $CP_FILE; '
+
+    bash += 'mkdir -p $OUT; LOGFILE=$OUT/lint.log; trap "rv=\$?; if [ \$rv != 0 ] ; then cat $LOGFILE 1>&2 ; fi ; rm -f $LOGFILE; exit $rv" EXIT;  java -Djava.awt.headless=true -Dcom.android.tools.lint.workdir=$PROJECT_ROOT '
+    bash += "-Xmx1024m "
+    bash += "-classpath {} com.android.tools.lint.Main ".format(toLocation('//.okbuck/workspace/lint:okbuck_lint'))
+
+    if has_srcs:
+        bash += "--classpath $(location :src_{}) --libraries `cat $CP_FILE` ".format(variant)
+
+    for src in srcs:
+        bash += '--sources {}/{} '.format(get_base_path(), src)
+
+    for resource in resources:
+        bash += '--resources {}/{} '.format(get_base_path(), resource)
+
+    # Implicit options
+    bash += '--xml "$OUT/lint-results.xml" '
+    bash += '--html "$OUT/lint-results.html" '
+    bash += '--fullpath '
+
+    bash += "{} `dirname {}` >$LOGFILE 2>/dev/null".format(' '.join(lint_options), toLocation(manifest))
+
+    genrule(
+        name = name,
+        srcs = srcs + resources,
+        out = "{}_out".format(name),
+        type = 'okbuck_lint',
+        bash = bash
+    )
+
+def shellquote(s):
+    return "'" + s.replace("'", "'\\''") + "'"
+
+def okbuck_manifest(
+        name,
+        main_manifest,
+        min_sdk,
+        target_sdk,
+        package=None,
+        version_code=None,
+        version_name=None,
+        debuggable=False,
+        secondary_manifests=None,
+    ):
+    if not secondary_manifests:
+        secondary_manifests = []
+
+    cmds =[]
+    cmds.append("java -jar -Xmx256m $(location //.okbuck/workspace/manifest-merger:okbuck_manifest_merger)")
+    cmds.append("--main $SRCDIR/{}".format(main_manifest))
+    if len(secondary_manifests) > 0:
+        cmds.append("--overlays {}".format(" ".join(["$SRCDIR/" + m for m in secondary_manifests])))
+    cmds.append("--property MIN_SDK_VERSION={}".format(min_sdk))
+    cmds.append("--property TARGET_SDK_VERSION={}".format(target_sdk))
+    if package:
+        cmds.append("--property PACKAGE={}".format(package))
+    if version_code:
+        cmds.append("--property VERSION_CODE={}".format(version_code))
+    if version_name:
+        cmds.append("--property VERSION_NAME={}".format(version_name))
+    if debuggable:
+        cmds.append("--debuggable true")
+    else:
+        cmds.append("--debuggable false")
+    cmds.append("--out $OUT")
+
+    genrule(
+        name = name,
+        srcs = [main_manifest] + secondary_manifests,
+        out = 'AndroidManifest.xml',
+        type = 'okbuck_manifest',
+        cmd = ' '.join(cmds),
+    )
+
+def isLintEnabled(manifest):
+    return False
+
+def okbuck_android_library(
+    name,
+    manifest=None,
+    deps=None,
+    lint_src_dirs=None,
+    lint_resource_dirs=None,
+    disable_lint=False,
+    custom_lints=None,
+    lint_options=None,
+    **kwargs
+    ):
+    if not deps:
+        deps = []
+    if not lint_src_dirs:
+        lint_src_dirs = []
+    if not lint_resource_dirs:
+        lint_resource_dirs = []
+    if not custom_lints:
+        custom_lints = []
+    if not lint_options:
+        lint_options = []
+
+    android_library(
+        name = name,
+        manifest = manifest,
+        deps = deps,
+        **kwargs
+    )
+
+    if not disable_lint and isLintEnabled(manifest):
+        aar_deps = []
+        for dep in deps:
+            if dep.startswith("//.okbuck/ext/") and dep.endswith(".aar"):
+                aar_deps.append(dep)
+
+        variant = name.replace('src_', '', 1)
+        okbuck_lint(
+            variant = variant,
+            manifest = manifest,
+            srcs = lint_src_dirs,
+            resources = lint_resource_dirs,
+            aar_deps = aar_deps,
+            custom_lints = custom_lints,
+            lint_options = lint_options,
+        )
+
+def okbuck_keystore(
+    name,
+    storeFile,
+    storePassword,
+    keyAlias,
+    keyPassword
+    ):
+    properties_rule = name + "_properties"
+    genrule(
+        name = properties_rule,
+        out = 'keystore.properties',
+        type = 'okbuck_keystore',
+        cmd = 'printf "key.alias={}\\nkey.store.password={}\\nkey.alias.password={}\\n" > $OUT'.format(keyAlias, storePassword, keyPassword)
+    )
+
+    keystore(
+        name = name,
+        store = storeFile,
+        properties = ':' + properties_rule,
+        visibility = ['PUBLIC'],
+    )
