@@ -69,11 +69,11 @@ public class SplitInstallManagerWrapper {
 
 
     public void registerSplitInstallListener(SplitInstallStateUpdatedListener stateUpdatedListener) {
-        splitInstallManager.unregisterListener(stateUpdatedListener);
+        splitInstallManager.registerListener(stateUpdatedListener);
     }
 
     public void unRegisterSplitInstallListener(SplitInstallStateUpdatedListener stateUpdatedListener) {
-        splitInstallManager.registerListener(stateUpdatedListener);
+        splitInstallManager.unregisterListener(stateUpdatedListener);
     }
 
     public void setListener(Listener listener) {

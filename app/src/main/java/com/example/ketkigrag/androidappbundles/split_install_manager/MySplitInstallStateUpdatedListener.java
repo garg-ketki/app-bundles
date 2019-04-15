@@ -4,6 +4,8 @@ import com.google.android.play.core.splitinstall.SplitInstallSessionState;
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener;
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus;
 
+import java.util.List;
+
 public class MySplitInstallStateUpdatedListener implements SplitInstallStateUpdatedListener {
 
     private final Listener listener;
@@ -14,7 +16,7 @@ public class MySplitInstallStateUpdatedListener implements SplitInstallStateUpda
 
     @Override
     public void onStateUpdate(SplitInstallSessionState splitInstallSessionState) {
-        final String moduleName = splitInstallSessionState.moduleNames().toString();
+        final List<String> moduleName = splitInstallSessionState.moduleNames();
         switch (splitInstallSessionState.status()) {
             case SplitInstallSessionStatus.DOWNLOADING:
                 listener.onDownloading(moduleName, (int) splitInstallSessionState.bytesDownloaded(), (int) splitInstallSessionState.totalBytesToDownload(), "Downloading " + moduleName);
@@ -33,12 +35,12 @@ public class MySplitInstallStateUpdatedListener implements SplitInstallStateUpda
 
     public interface Listener {
 
-        void onFailed(String moduleName, String message);
+        void onFailed(List<String> moduleName, String message);
 
-        void onInstalling(String moduleName, int bytesDownloaded, int totalBytes, String message);
+        void onInstalling(List<String> moduleName, int bytesDownloaded, int totalBytes, String message);
 
-        void onInstalled(String moduleName);
+        void onInstalled(List<String> moduleName);
 
-        void onDownloading(String moduleName, int bytesDownloaded, int totalBytes, String message);
+        void onDownloading(List<String> moduleName, int bytesDownloaded, int totalBytes, String message);
     }
 }

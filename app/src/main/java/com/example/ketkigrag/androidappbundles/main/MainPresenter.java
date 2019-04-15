@@ -6,6 +6,9 @@ import com.example.ketkigrag.androidappbundles.split_install_manager.MySplitInst
 import com.example.ketkigrag.androidappbundles.split_install_manager.SplitInstallManagerWrapper;
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.ketkigrag.androidappbundles.Constants.FEATURE1_CLASS_PATH;
 
 public class MainPresenter implements MainContract.Presenter, SplitInstallManagerWrapper.Listener, MySplitInstallStateUpdatedListener.Listener {
@@ -26,7 +29,9 @@ public class MainPresenter implements MainContract.Presenter, SplitInstallManage
     @Override
     public void onModuleInstallSuccess(String moduleName) {
         view.displayButtons();
-        onSuccessfulLoad(moduleName);
+        final ArrayList<String> list = new ArrayList<>();
+        list.add(moduleName);
+        onSuccessfulLoad(list);
     }
 
     @Override
@@ -76,31 +81,31 @@ public class MainPresenter implements MainContract.Presenter, SplitInstallManage
     }
 
     @Override
-    public void onFailed(String moduleName, String message) {
+    public void onFailed(List<String> moduleName, String message) {
         view.toastAndLog(message);
     }
 
     @Override
-    public void onInstalling(String moduleName, int bytesDownloaded, int totalBytes, String message) {
+    public void onInstalling(List<String> moduleName, int bytesDownloaded, int totalBytes, String message) {
         view.displayProgressBar();
         view.updateProgress(bytesDownloaded, totalBytes);
         view.displayProgressText(message);
     }
 
     @Override
-    public void onInstalled(String moduleName) {
+    public void onInstalled(List<String> moduleName) {
         onSuccessfulLoad(moduleName);
     }
 
     @Override
-    public void onDownloading(String moduleName, int bytesDownloaded, int totalBytes, String message) {
+    public void onDownloading(List<String> moduleName, int bytesDownloaded, int totalBytes, String message) {
         view.displayProgressBar();
         view.updateProgress(bytesDownloaded, totalBytes);
         view.displayProgressText(message);
     }
 
-    private void onSuccessfulLoad(String moduleName) {
-        if (dynamicAppModules.isModuleExist(moduleName)) {
+    private void onSuccessfulLoad(List<String> moduleName) {
+        if (moduleName.contains(dynamicAppModules.getModule1())) {
             view.launchActivity(FEATURE1_CLASS_PATH);
         }
     }

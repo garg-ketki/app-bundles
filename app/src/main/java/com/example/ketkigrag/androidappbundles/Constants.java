@@ -9,5 +9,5 @@ public final class Constants {
     }
 
     public static final String PACKAGE_NAME = "com.example.ketkigrag.androidappbundles.ondemand";
-    public static String FEATURE1_CLASS_PATH = PACKAGE_NAME + ".LauncherActivity";
+    public static String FEATURE1_CLASS_PATH = PACKAGE_NAME + ".LaunchActivity";
 }
