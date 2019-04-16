@@ -1,19 +1,18 @@
 package com.example.ketkigrag.androidappbundles.main;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.ketkigrag.androidappbundles.BaseSplitActivity;
 import com.example.ketkigrag.androidappbundles.BuildConfig;
 import com.example.ketkigrag.androidappbundles.Injector;
 import com.example.ketkigrag.androidappbundles.R;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+public class MainActivity extends BaseSplitActivity implements MainContract.View {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private View instructionsView, dynamicFeature1View, uninstallDynamicFeaturesView;
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void launchActivity(String className) {
       Intent intent = new Intent();
-      intent.setComponent(new ComponentName(BuildConfig.APPLICATION_ID, className));
+      intent.setClassName(BuildConfig.APPLICATION_ID, className);
       startActivity(intent);
     }
 

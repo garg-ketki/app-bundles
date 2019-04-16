@@ -1,9 +1,9 @@
 package com.example.ketkigrag.androidappbundles.ondemand;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.ketkigrag.androidappbundles.BaseSplitActivity;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends BaseSplitActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
