@@ -1,57 +1,65 @@
-Gradle
-................
-1. ./gradlew installDebug
-- It will install the debug app
-- Path to Debug apk: /app/build/outputs/apk/app-debug.apk
+**Run project with Gradle**
+1. Apk
+    - ./gradlew installDebug
+    - It will install the debug app
+    - Path to Debug apk: /app/build/outputs/apk/app-debug.apk
 
-2. ./gradlew bundleDebug
-- It will create a the debug bundle
-- Path to Debug aar: /app/build/outputs/bundle/debug/app.aab
+2. Aab
+    - ./gradlew bundleDebug
+    - It will create a the debug bundle
+    - Path to Debug aar: /app/build/outputs/bundle/debug/app.aab
 
-Setup Buck project
-.................
+**Setup Buck project**
 1. Follow instruction provided in https://github.com/uber/okbuck link
 2. After applying the plugin, you will see okbuck tasks added. To verify run ./gradlew tasks
 3. To create buck wrapper execute the task: ./gradlew :buckWrapper
-- This will generate BUCK file in app package
+    - This will generate BUCK file in app package
 4. Execution of buck tasks will fail at multiple points: ./buckw build //app:bin_debug
 
-Error 1:
-'''
-> Task :app:okbuck FAILED
+    Error 1:
+    ```
+    > Task :app:okbuck FAILED
+    
+    FAILURE: Build failed with an exception.
+    What went wrong:
+    Execution failed for task ':app:okbuck'.
+    > /Users/ketkigrag/.android/debug.keystore must be located inside /Users/ketkigrag/App_Bundles/AppBundlesProject
+    
+    Add signing configuration in app -> build.gradle and create a keystore
+    ```
+    Error 2:
+    ```
+    * What went wrong:
+    Execution failed for task ':app:okbuck'.
+    > Configuration with name 'buckLint_deps' not found.
+    
+    Add following code to main build.gradle
+    okbuck {
+            target = "android-$compileSdkVersion"
+            buildToolVersion = "28.0.3"
+    
+            lint {
+                disabled = true
+            }
+    }
+   ```
+   
+**Run project with Buck**
+1. Apk
+    - ./buckw install //app:bin_debug
+    - It will install the debug app
+    - Path to Debug apk: /buck-out/gen/app/bin_debug.apk
 
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Execution failed for task ':app:okbuck'.
-> /Users/ketkigrag/.android/debug.keystore must be located inside /Users/ketkigrag/App_Bundles/AppBundlesProject
-'''
-Add signing configuration in app -> build.gradle and create a keystore
-
-Error 2:
-'''
-* What went wrong:
-Execution failed for task ':app:okbuck'.
-> Configuration with name 'buckLint_deps' not found.
-'''
-Add following code to main build.gradle
-okbuck {
-        target = "android-$compileSdkVersion"
-        buildToolVersion = "28.0.3"
-
-        lint {
-            disabled = true
-        }
-}
-
-5. Run command: ./buckw install //app:bin_debug.
-- It will install the debug app
-- Path to Debug apk: /buck-out/gen/app/bin_debug.apk
+2. Aab
+    - Add custom rule
+    - ./gradlew bundleDebug
+    - It will create a the debug bundle
+    - Path to Debug aar: /app/build/outputs/bundle/debug/app.aab
 
 6. Create .aab file through buck
-- Add custom rule
-extraDefs += project.file('buck-rules/BUNDLE_RULE')
-- Run command ./buckw build //app:bundle_debug
+    
+    extraDefs += project.file('buck-rules/BUNDLE_RULE')
+    - Run command ./buckw build //app:bundle_debug
 
 Issue1: Currently getting an error as expected:
 '''

@@ -9,15 +9,15 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.example.ketkigrag.androidappbundles',
-    version_code = '1',
-    version_name = '1.0',
+    package = 'com.ketkigrag.androidappbundles',
+    version_code = '15',
+    version_name = '1.0.14',
     debuggable = True,
 )
 
 android_resource(
     name = 'res_debug',
-    package = 'com.example.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles',
     res = res_glob([
         ('src/main/res', '**'),
     ]),
@@ -50,6 +50,7 @@ android_resource(
         '//.okbuck/ext/com/android/support:swiperefreshlayout-28.0.0.aar',
         '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
         '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
+        '//.okbuck/ext/com/google/android/play:core-1.4.0.aar',
     ],
     visibility = [
         'PUBLIC',
@@ -58,13 +59,13 @@ android_resource(
 
 android_build_config(
     name = 'build_config_debug',
-    package = 'com.example.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles',
     values = [
-        'String APPLICATION_ID = "com.example.ketkigrag.androidappbundles"',
+        'String APPLICATION_ID = "com.ketkigrag.androidappbundles"',
         'String BUILD_TYPE = "debug"',
         'String FLAVOR = ""',
-        'int VERSION_CODE = 1',
-        'String VERSION_NAME = "1.0"',
+        'int VERSION_CODE = 15',
+        'String VERSION_NAME = "1.0.14"',
     ],
     visibility = [
         'PUBLIC',
@@ -119,6 +120,7 @@ okbuck_android_library(
         '//.okbuck/ext/com/android/support:swiperefreshlayout-28.0.0.aar',
         '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
         '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
+        '//.okbuck/ext/com/google/android/play:core-1.4.0.aar',
         ':build_config_debug',
         ':manifest_lib_debug',
         ':res_debug',
@@ -141,9 +143,9 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.example.ketkigrag.androidappbundles',
-    version_code = '1',
-    version_name = '1.0',
+    package = 'com.ketkigrag.androidappbundles',
+    version_code = '15',
+    version_name = '1.0.14',
     debuggable = True,
 )
 
@@ -155,7 +157,7 @@ custom_android_binary(
     package_type = 'debug',
     manifest_entries = {
         'placeholders': {
-            'applicationId': 'com.example.ketkigrag.androidappbundles',
+            'applicationId': 'com.ketkigrag.androidappbundles',
         },
     },
     deps = [
@@ -172,15 +174,15 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.example.ketkigrag.androidappbundles',
-    version_code = '1',
-    version_name = '1.0',
+    package = 'com.ketkigrag.androidappbundles',
+    version_code = '15',
+    version_name = '1.0.14',
     debuggable = False,
 )
 
 android_resource(
     name = 'res_release',
-    package = 'com.example.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles',
     res = res_glob([
         ('src/main/res', '**'),
     ]),
@@ -213,6 +215,7 @@ android_resource(
         '//.okbuck/ext/com/android/support:swiperefreshlayout-28.0.0.aar',
         '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
         '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
+        '//.okbuck/ext/com/google/android/play:core-1.4.0.aar',
     ],
     visibility = [
         'PUBLIC',
@@ -221,13 +224,13 @@ android_resource(
 
 android_build_config(
     name = 'build_config_release',
-    package = 'com.example.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles',
     values = [
-        'String APPLICATION_ID = "com.example.ketkigrag.androidappbundles"',
+        'String APPLICATION_ID = "com.ketkigrag.androidappbundles"',
         'String BUILD_TYPE = "release"',
         'String FLAVOR = ""',
-        'int VERSION_CODE = 1',
-        'String VERSION_NAME = "1.0"',
+        'int VERSION_CODE = 15',
+        'String VERSION_NAME = "1.0.14"',
     ],
     visibility = [
         'PUBLIC',
@@ -282,6 +285,7 @@ okbuck_android_library(
         '//.okbuck/ext/com/android/support:swiperefreshlayout-28.0.0.aar',
         '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
         '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
+        '//.okbuck/ext/com/google/android/play:core-1.4.0.aar',
         ':build_config_release',
         ':manifest_lib_release',
         ':res_release',
@@ -304,9 +308,9 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.example.ketkigrag.androidappbundles',
-    version_code = '1',
-    version_name = '1.0',
+    package = 'com.ketkigrag.androidappbundles',
+    version_code = '15',
+    version_name = '1.0.14',
     debuggable = False,
 )
 
@@ -318,7 +322,7 @@ custom_android_binary(
     package_type = 'release',
     manifest_entries = {
         'placeholders': {
-            'applicationId': 'com.example.ketkigrag.androidappbundles',
+            'applicationId': 'com.ketkigrag.androidappbundles',
         },
     },
     deps = [

@@ -1,5 +1,5 @@
 <resources>
-    <string name="module_dynamic_feature1_name">Dynamic Feature1</string>
+    <string name="module_dynamic_feature1_name">feature1</string>
 
     <string-array name="dynamic_features">
         <item name="module_dynamic_feature1">@string/module_dynamic_feature1_name</item>
