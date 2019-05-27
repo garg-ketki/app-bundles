@@ -9,7 +9,7 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     version_code = '17',
     version_name = '1.0.17',
     debuggable = True,
@@ -17,7 +17,7 @@ okbuck_manifest(
 
 android_resource(
     name = 'res_debug',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     res = res_glob([
         ('src/main/res', '**'),
     ]),
@@ -59,9 +59,9 @@ android_resource(
 
 android_build_config(
     name = 'build_config_debug',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     values = [
-        'String APPLICATION_ID = "com.ketkigrag.androidappbundles"',
+        'String APPLICATION_ID = "com.ketkigrag.androidappbundles.ondemand"',
         'String BUILD_TYPE = "debug"',
         'String FLAVOR = ""',
         'int VERSION_CODE = 17',
@@ -143,7 +143,7 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     version_code = '17',
     version_name = '1.0.17',
     debuggable = True,
@@ -157,7 +157,7 @@ custom_android_binary(
     package_type = 'debug',
     manifest_entries = {
         'placeholders': {
-            'applicationId': 'com.ketkigrag.androidappbundles',
+            'applicationId': 'com.ketkigrag.androidappbundles.ondemand',
         },
     },
     deps = [
@@ -174,7 +174,7 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     version_code = '17',
     version_name = '1.0.17',
     debuggable = False,
@@ -182,7 +182,7 @@ okbuck_manifest(
 
 android_resource(
     name = 'res_release',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     res = res_glob([
         ('src/main/res', '**'),
     ]),
@@ -224,9 +224,9 @@ android_resource(
 
 android_build_config(
     name = 'build_config_release',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     values = [
-        'String APPLICATION_ID = "com.ketkigrag.androidappbundles"',
+        'String APPLICATION_ID = "com.ketkigrag.androidappbundles.ondemand"',
         'String BUILD_TYPE = "release"',
         'String FLAVOR = ""',
         'int VERSION_CODE = 17',
@@ -308,7 +308,7 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.ketkigrag.androidappbundles',
+    package = 'com.ketkigrag.androidappbundles.ondemand',
     version_code = '17',
     version_name = '1.0.17',
     debuggable = False,
@@ -322,7 +322,7 @@ custom_android_binary(
     package_type = 'release',
     manifest_entries = {
         'placeholders': {
-            'applicationId': 'com.ketkigrag.androidappbundles',
+            'applicationId': 'com.ketkigrag.androidappbundles.ondemand',
         },
     },
     deps = [
@@ -332,21 +332,4 @@ custom_android_binary(
     visibility = [
         'PUBLIC',
     ],
-)
-
-android_bundle(
-    name='bundle_release',
-    deps = [
-        ':bundle_module_release',
-        '//features/feature1:bundle_module_release'
-    ],
-    keystore=':keystore_release',
-    visibility = [
-        'PUBLIC',
-    ],
-)
-export_file(
-  name = 'debug.keystore',
-  mode = 'reference',
-  visibility = ['PUBLIC'],
 )

@@ -179,11 +179,12 @@ watchmanWorkflow ( ) {
 }
 
 setupBuckBinary ( ) {
-    BUCK_BINARY=$(find "$BUCK_BINARY_DIR" -name buck*.pex)
+    BUCK_BINARY="/Users/ketki/Uber/buck/buck-out/gen/programs/buck.pex"
+    #BUCK_BINARY=$(find "$BUCK_BINARY_DIR" -name buck*.pex)
 
-    if [[ ! -x "$BUCK_BINARY" ]]; then
-        chmod +x "$BUCK_BINARY"
-    fi
+    #if [[ ! -x "$BUCK_BINARY" ]]; then
+    #    chmod +x "$BUCK_BINARY"
+    #fi
 }
 
 # Run tasks before buck command
