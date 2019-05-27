@@ -16,8 +16,8 @@ def custom_android_binary(
 
   bundle_rule_name = name.replace("bin_", "bundle_module_", 1)
   android_bundle_module_args = dict(kwargs)
-  native.android_bundle_module(
-    name=bundle_rule_name,
-    module_name = module_name,
-    **android_bundle_module_args
-  )
+#  native.android_bundle_module(
+#    name=bundle_rule_name,
+#    module_name = module_name,
+#    **android_bundle_module_args
+#  )
