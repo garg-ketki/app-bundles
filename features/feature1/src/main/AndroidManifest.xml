@@ -5,6 +5,7 @@
 
     <dist:module
             dist:onDemand="true"
+            dist:instant="false"
             dist:title="@string/module_dynamic_feature1_name">
         <dist:fusing dist:include="true" />
     </dist:module>
