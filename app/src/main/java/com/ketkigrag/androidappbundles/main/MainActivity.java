@@ -17,7 +17,7 @@ import com.ketkigrag.androidappbundles.split_install_manager.MySplitInstallState
 public class MainActivity extends BaseSplitActivity implements MainContract.View {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private View instructionsView, dynamicFeature1View, uninstallDynamicFeaturesView;
+    private View instructionsView, dynamicFeature1View, dynamicFeature2View, uninstallDynamicFeaturesView;
     private ProgressBar progressBar;
     private TextView progressTextView;
     private MainContract.Presenter presenter;
@@ -37,6 +37,7 @@ public class MainActivity extends BaseSplitActivity implements MainContract.View
         //initialize Views
         instructionsView = findViewById(R.id.tv_instructions);
         dynamicFeature1View = findViewById(R.id.btn_load_feature1);
+        dynamicFeature2View = findViewById(R.id.btn_load_feature2);
         uninstallDynamicFeaturesView = findViewById(R.id.btn_uninstall_features);
         progressBar = findViewById(R.id.progress_bar);
         progressTextView = findViewById(R.id.progress_text);
@@ -49,6 +50,12 @@ public class MainActivity extends BaseSplitActivity implements MainContract.View
             @Override
             public void onClick(View v) {
                 presenter.loadAndLaunchModule1();
+            }
+        });
+        dynamicFeature2View.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.loadAndLaunchModule2();
             }
         });
 
@@ -103,6 +110,7 @@ public class MainActivity extends BaseSplitActivity implements MainContract.View
 
         instructionsView.setVisibility(View.GONE);
         dynamicFeature1View.setVisibility(View.GONE);
+        dynamicFeature2View.setVisibility(View.GONE);
         uninstallDynamicFeaturesView.setVisibility(View.GONE);
     }
 
@@ -110,6 +118,7 @@ public class MainActivity extends BaseSplitActivity implements MainContract.View
     public void displayButtons() {
         instructionsView.setVisibility(View.VISIBLE);
         dynamicFeature1View.setVisibility(View.VISIBLE);
+        dynamicFeature2View.setVisibility(View.VISIBLE);
         uninstallDynamicFeaturesView.setVisibility(View.VISIBLE);
 
         progressBar.setVisibility(View.GONE);

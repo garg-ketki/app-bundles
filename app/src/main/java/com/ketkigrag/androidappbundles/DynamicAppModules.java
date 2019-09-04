@@ -22,4 +22,8 @@ public class DynamicAppModules {
     public String getModule1() {
         return modules.get(0);
     }
+
+    public String getModule2() {
+        return modules.get(1);
+    }
 }

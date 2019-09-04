@@ -32,7 +32,7 @@ android {
         }
     }
 
-    dynamicFeatures = [':features:feature1']
+    dynamicFeatures = [':features:feature1', ':features:feature2']
 }
 
 dependencies {

@@ -62,6 +62,11 @@ public class MainPresenter implements MainContract.Presenter, SplitInstallManage
     }
 
     @Override
+    public void loadAndLaunchModule2() {
+        splitInstallManagerWrapper.loadAndLaunchModule(dynamicAppModules.getModule2());
+    }
+
+    @Override
     public void uninstallAllFeatures() {
         splitInstallManagerWrapper.uninstallAllFeatures();
     }

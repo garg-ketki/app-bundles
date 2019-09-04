@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidAppBundles</string>
+    <string name="info_message">This is a Dynamic feature1 Loaded on Demand!</string>
 </resources>
