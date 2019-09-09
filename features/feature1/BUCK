@@ -381,7 +381,10 @@ android_bundle_module(
         '//.okbuck/ext/com/android/support:swiperefreshlayout-28.0.0.aar',
         '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
         '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
-        '//.okbuck/ext/com/google/android/play:core-1.4.0.aar'
+        '//.okbuck/ext/com/google/android/play:core-1.4.0.aar',
+        '//app:src_release',
+        '//app:res_release',
+        '//app:manifest_lib_release'
     ],
     manifest_entries = {
     'placeholders': {
