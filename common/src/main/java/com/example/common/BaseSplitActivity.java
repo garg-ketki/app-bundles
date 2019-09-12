@@ -1,4 +1,4 @@
-package com.ketkigrag.androidappbundles;
+package com.example.common;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
