@@ -122,7 +122,6 @@ okbuck_android_library(
         '//.okbuck/ext/io/reactivex/rxjava2:rxandroid-2.1.1.aar',
         '//.okbuck/ext/io/reactivex/rxjava2:rxjava-2.2.12.jar',
         ':build_config_release',
-        ':manifest_lib_release',
         ':res_release',
     ],
     visibility = [
@@ -138,37 +137,6 @@ okbuck_keystore(
     keyPassword = 'android',
 )
 
-okbuck_manifest(
-    name = 'manifest_bin_release',
-    main_manifest = 'src/main/AndroidManifest.xml',
-    min_sdk = '15',
-    target_sdk = '28',
-    package = 'com.ketkigrag.androidappbundles.ondemand',
-    version_code = '15',
-    version_name = '1.0.14',
-    debuggable = False,
-)
-
-android_binary(
-    name = 'bin_release',
-    manifest_skeleton = ':manifest_bin_release',
-    keystore = ':keystore_release',
-    dex_tool = 'd8',
-    package_type = 'release',
-    manifest_entries = {
-        'placeholders': {
-            'applicationId': 'com.ketkigrag.androidappbundles.ondemand',
-        },
-    },
-    deps = [
-        ':res_release',
-        ':src_release',
-    ],
-    visibility = [
-        'PUBLIC',
-    ],
-)
-
 export_file(
   name = 'debug.keystore',
   mode = 'reference',
@@ -178,7 +146,7 @@ export_file(
 android_bundle_module(
     name = 'bundle_module_release',
     module_name = 'feature1',
-    manifest_skeleton = ':manifest_bin_release',
+    manifest_skeleton = 'src/AndroidManifest.xml',
     keystore = ':keystore_release',
     dex_tool = 'd8',
     package_type = 'release',
