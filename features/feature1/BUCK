@@ -9,7 +9,7 @@ okbuck_manifest(
     main_manifest = 'src/main/AndroidManifest.xml',
     min_sdk = '15',
     target_sdk = '28',
-    package = 'com.ketkigrag.androidappbundles.ondemand',
+    package = 'com.ketkigrag.androidappbundles',
     version_code = '15',
     version_name = '1.0.14',
     debuggable = False,
@@ -17,7 +17,7 @@ okbuck_manifest(
 
 android_resource(
     name = 'res_release',
-    package = 'com.ketkigrag.androidappbundles.ondemand',
+    package = 'com.ketkigrag.androidappbundles',
     res = res_glob([
         ('src/main/res', '**'),
     ]),
@@ -59,7 +59,7 @@ android_resource(
 
 android_build_config(
     name = 'build_config_release',
-    package = 'com.ketkigrag.androidappbundles.ondemand',
+    package = 'com.ketkigrag.androidappbundles',
     values = [
         'String APPLICATION_ID = "com.ketkigrag.androidappbundles"',
         'String BUILD_TYPE = "release"',
@@ -151,7 +151,7 @@ android_bundle_module(
     package_type = 'release',
     manifest_entries = {
     'placeholders': {
-    'applicationId': 'com.ketkigrag.androidappbundles.ondemand',
+    'applicationId': 'com.ketkigrag.androidappbundles',
     },
     },
     deps = [

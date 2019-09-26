@@ -1,7 +1,8 @@
-package com.ketkigrag.androidappbundles.ondemand;
+package com.ketkigrag.androidappbundles;
 
 import android.os.Bundle;
 import com.ketkigrag.androidappbundles.BaseSplitActivity;
+import com.ketkigrag.androidappbundles.R;
 import io.reactivex.Scheduler;
 import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;

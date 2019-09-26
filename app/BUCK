@@ -15,8 +15,6 @@ okbuck_manifest(
     version_code = '15',
     version_name = '1.0.14',
     debuggable = False,
-    secondary_manifests = [
-    '//features/feature1:manifest_lib_release'],
 )
 
 android_resource(
