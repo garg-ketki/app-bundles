@@ -51,9 +51,6 @@ android_resource(
         '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
         '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
     ],
-    visibility = [
-        'PUBLIC',
-    ],
 )
 
 lib_deps = []
