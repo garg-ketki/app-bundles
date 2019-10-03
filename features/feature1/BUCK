@@ -110,30 +110,6 @@ export_file(
   visibility = ['PUBLIC'],
 )
 
-android_bundle_module(
-    name = 'bundle_module_release',
-    module_name = 'feature1',
-    manifest_skeleton = ':manifest_lib_release',
-    module_manifest_skeleton = ':manifest_lib_release',
-    keystore = '//app:keystore_release',
-    dex_tool = 'd8',
-    package_type = 'release',
-    manifest_entries = {
-    'placeholders': {
-    'applicationId': 'com.ketkigrag.androidappbundles',
-    },
-    },
-    application_module_targets = [
-            ':module_root',
-        ],
-    deps = [
-        '//app:bundle_module_release',
-        ':module_root'
-    ],
-    visibility = [
-        'PUBLIC',
-    ],
-)
 
 okbuck_android_library(
     name = 'module_root',
@@ -143,6 +119,9 @@ okbuck_android_library(
     deps = [
         ':res_release',
         ':src_release',
+    ],
+    visibility = [
+        'PUBLIC',
     ],
 )
 
