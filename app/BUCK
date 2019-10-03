@@ -161,43 +161,44 @@ export_file(
   visibility = ['PUBLIC'],
 )
 
-android_bundle_module(
-    name = 'bundle_module_release',
-    module_name = 'base',
-    manifest_skeleton = ':manifest_lib_release',
+
+android_bundle(
+    name = 'bundle_release',
     keystore = ':keystore_release',
     dex_tool = 'd8',
+    disable_pre_dex = True,
+    use_split_dex = True,
     package_type = 'release',
+    manifest_skeleton = ':manifest_lib_release',
+    module_manifest_skeleton = 'ModuleManifest.xml',
     manifest_entries = {
     'placeholders': {
     'applicationId': 'com.ketkigrag.androidappbundles',
     },
     },
+    application_module_configs={
+    	"feature1":['//features/feature1:module_root',],
+    },
+    application_modules_with_manifest = [
+        "feature1",
+    ],
     deps = [
-        ':res_release',
-        ':src_release',
+        '//features/feature1:module_root',
+        ':base_root'
     ],
     visibility = [
         'PUBLIC',
     ],
 )
 
-android_bundle(
-    name = 'bundle_release',
-    keystore = ':keystore_release',
-    dex_tool = 'd8',
-    package_type = 'release',
-    manifest_entries = {
-    'placeholders': {
-    'applicationId': 'com.ketkigrag.androidappbundles',
-    },
-    },
+okbuck_android_library(
+    name = 'base_root',
+    source = '7',
+    target = '7',
+    disable_lint = True,
     deps = [
-        '//features/feature1:bundle_module_release',
-        '//app:bundle_module_release'
-    ],
-    visibility = [
-        'PUBLIC',
+        ':res_release',
+        ':src_release',
     ],
 )
 
