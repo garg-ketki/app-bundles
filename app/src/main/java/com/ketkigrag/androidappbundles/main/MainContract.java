@@ -20,7 +20,6 @@ public interface MainContract {
 
     interface Presenter {
         void loadAndLaunchModule1();
-        void loadAndLaunchModule2();
 
         void uninstallAllFeatures();
 

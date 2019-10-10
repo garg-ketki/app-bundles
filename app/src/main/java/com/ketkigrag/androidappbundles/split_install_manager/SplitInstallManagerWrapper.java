@@ -1,5 +1,6 @@
 package com.ketkigrag.androidappbundles.split_install_manager;
 
+import android.util.Log;
 import com.google.android.play.core.splitinstall.SplitInstallException;
 import com.google.android.play.core.splitinstall.SplitInstallManager;
 import com.google.android.play.core.splitinstall.SplitInstallRequest;
@@ -21,6 +22,7 @@ public class SplitInstallManagerWrapper {
     }
 
     public void loadAndLaunchModule(final String moduleName) {
+        Log.v("ketki","splitInstallManager.getInstalledModules(): "+splitInstallManager.getInstalledModules()+" moduleName: "+moduleName);
         if (splitInstallManager.getInstalledModules().contains(moduleName)) {
             listener.onModuleInstallSuccess(new ArrayList(Arrays.asList(moduleName)));
         } else {

@@ -1,5 +1,6 @@
 package com.ketkigrag.androidappbundles.main;
 
+import android.util.Log;
 import com.ketkigrag.androidappbundles.DynamicAppModules;
 import com.ketkigrag.androidappbundles.split_install_manager.MySplitInstallStateUpdatedListener;
 import com.ketkigrag.androidappbundles.split_install_manager.SplitInstallManagerWrapper;
@@ -25,45 +26,47 @@ public class MainPresenter implements MainContract.Presenter, SplitInstallManage
 
     @Override
     public void onModuleInstallSuccess(List<String> moduleNames) {
+        Log.v("ketki","inside onModuleInstallSuccess: "+moduleNames);
         view.displayButtons();
         onSuccessfulLoad(moduleNames);
     }
 
     @Override
     public void onModuleInstallationFailed(String moduleName, String message) {
+        Log.v("ketki","inside onModuleInstallationFailed: "+moduleName+" message: "+message);
         view.displayButtons();
         view.toastAndLog(message);
     }
 
     @Override
     public void onModuleInstalling(String moduleName, String message) {
+        Log.v("ketki","inside onModuleInstalling: "+moduleName+" message: "+message);
         view.displayProgressBar();
         view.displayProgressText(message);
     }
 
     @Override
     public void onModulesUninstallingMessage(String message) {
+        Log.v("ketki","inside onModulesUninstallingMessage: "+message);
         view.toastAndLog(message);
     }
 
     @Override
     public void onModulesUninstallSuccess(String message) {
+        Log.v("ketki","inside onModulesUninstallSuccess: "+message);
         view.toastAndLog(message);
     }
 
     @Override
     public void onModuleUninstallFailure(String message) {
+        Log.v("ketki","inside onModuleUninstallFailure: "+message);
         view.toastAndLog(message);
     }
 
     @Override
     public void loadAndLaunchModule1() {
+        Log.v("ketki","inside loadAndLaunchModule1: ");
         splitInstallManagerWrapper.loadAndLaunchModule(dynamicAppModules.getModule1());
-    }
-
-    @Override
-    public void loadAndLaunchModule2() {
-        splitInstallManagerWrapper.loadAndLaunchModule(dynamicAppModules.getModule2());
     }
 
     @Override
@@ -88,6 +91,7 @@ public class MainPresenter implements MainContract.Presenter, SplitInstallManage
 
     @Override
     public void onInstalling(List<String> moduleName, int bytesDownloaded, int totalBytes, String message) {
+        Log.v("ketki","inside onInstalling: "+moduleName+" bytesDownloaded: "+bytesDownloaded+" totalBytes: "+totalBytes+" message: "+message);
         view.displayProgressBar();
         view.updateProgress(bytesDownloaded, totalBytes);
         view.displayProgressText(message);
@@ -95,17 +99,20 @@ public class MainPresenter implements MainContract.Presenter, SplitInstallManage
 
     @Override
     public void onInstalled(List<String> moduleNames) {
+        Log.v("ketki","inside onInstalled: "+moduleNames);
         onModuleInstallSuccess(moduleNames);
     }
 
     @Override
     public void onDownloading(List<String> moduleName, int bytesDownloaded, int totalBytes, String message) {
+        Log.v("ketki","inside onDownloading: "+moduleName+" bytesDownloaded: "+bytesDownloaded+" totalBytes: "+totalBytes+" message: "+message);
         view.displayProgressBar();
         view.updateProgress(bytesDownloaded, totalBytes);
         view.displayProgressText(message);
     }
 
     private void onSuccessfulLoad(List<String> moduleName) {
+        Log.v("ketki","inside onSuccessfulLoad: "+moduleName);
         if (moduleName.contains(dynamicAppModules.getModule1())) {
             view.launchActivity(FEATURE1_CLASS_PATH);
         }

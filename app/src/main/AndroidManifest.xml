@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          android:versionCode="15"
-          android:versionName="1.0.14"
+          android:versionCode="20"
+          android:versionName="1.0.19"
           package="com.ketkigrag.androidappbundles">
 
     <dist:module tools:node="removeAll"/>
