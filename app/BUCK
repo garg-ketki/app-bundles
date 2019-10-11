@@ -177,6 +177,7 @@ android_bundle(
     keystore = ':keystore_release',
     dex_tool = 'd8',
     disable_pre_dex = True,
+    has_dynamic_feature = True,
     use_split_dex = True,
     package_type = 'release',
     manifest_skeleton = ':manifest_lib_release',
