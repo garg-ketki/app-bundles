@@ -42,7 +42,7 @@ public class Injector {
         return new DynamicAppModules(context);
     }
 
-    public static SplitInstallStateUpdatedListener provideSplitInstallStateUpdatedListener(MySplitInstallStateUpdatedListener.Listener listener) {
-        return new MySplitInstallStateUpdatedListener(listener);
+    public static SplitInstallStateUpdatedListener provideSplitInstallStateUpdatedListener(Context context, MySplitInstallStateUpdatedListener.Listener listener) {
+        return new MySplitInstallStateUpdatedListener(context, listener);
     }
 }

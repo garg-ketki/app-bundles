@@ -1,5 +1,7 @@
 package com.ketkigrag.androidappbundles.split_install_manager;
 
+import android.content.Context;
+import com.google.android.play.core.splitinstall.SplitInstallHelper;
 import com.google.android.play.core.splitinstall.SplitInstallSessionState;
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener;
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus;
@@ -8,9 +10,11 @@ import java.util.List;
 
 public class MySplitInstallStateUpdatedListener implements SplitInstallStateUpdatedListener {
 
+    private Context context;
     private final Listener listener;
 
-    public MySplitInstallStateUpdatedListener(MySplitInstallStateUpdatedListener.Listener listener) {
+    public MySplitInstallStateUpdatedListener(Context context, MySplitInstallStateUpdatedListener.Listener listener) {
+        this.context = context;
         this.listener = listener;
     }
 
@@ -22,6 +26,7 @@ public class MySplitInstallStateUpdatedListener implements SplitInstallStateUpda
                 listener.onDownloading(moduleName, (int) splitInstallSessionState.bytesDownloaded(), (int) splitInstallSessionState.totalBytesToDownload(), "Downloading " + moduleName);
                 break;
             case SplitInstallSessionStatus.INSTALLED:
+                SplitInstallHelper.updateAppInfo(context);
                 listener.onInstalled(moduleName);
                 break;
             case SplitInstallSessionStatus.INSTALLING:

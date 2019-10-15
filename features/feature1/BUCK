@@ -10,8 +10,8 @@ okbuck_manifest(
     min_sdk = '15',
     target_sdk = '28',
     package = 'com.ketkigrag.androidappbundles',
-    version_code = '20',
-    version_name = '1.0.19',
+    version_code = '21',
+    version_name = '1.0.20',
     debuggable = False,
 )
 
@@ -52,7 +52,7 @@ android_resource(
                 '//.okbuck/ext/com/android/support:swiperefreshlayout-28.0.0.aar',
                 '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
                 '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
-                '//.okbuck/ext/com/google/android/play:core-1.4.0.aar',
+                '//.okbuck/ext/com/google/android/play:core-1.6.4.aar',
                 '//.okbuck/ext/io/reactivex/rxjava2:rxandroid-2.1.1.aar',
     ],
 )
@@ -102,7 +102,7 @@ okbuck_android_library(
         '//.okbuck/ext/com/android/support:swiperefreshlayout-28.0.0.aar',
         '//.okbuck/ext/com/android/support:versionedparcelable-28.0.0.aar',
         '//.okbuck/ext/com/android/support:viewpager-28.0.0.aar',
-        '//.okbuck/ext/com/google/android/play:core-1.4.0.aar',
+        '//.okbuck/ext/com/google/android/play:core-1.6.4.aar',
         '//.okbuck/ext/io/reactivex/rxjava2:rxandroid-2.1.1.aar',
         '//.okbuck/ext/io/reactivex/rxjava2:rxjava-2.2.12.jar',
         '//.okbuck/ext/org/reactivestreams:reactive-streams-1.0.2.jar',

@@ -32,7 +32,7 @@ public class MainActivity extends BaseSplitActivity implements MainContract.View
 
     private void initialize() {
         presenter = Injector.providePresenter(this, this);
-        splitInstallStateUpdatedListener = Injector.provideSplitInstallStateUpdatedListener((Listener) presenter);
+        splitInstallStateUpdatedListener = Injector.provideSplitInstallStateUpdatedListener(this, (Listener) presenter);
 
         //initialize Views
         instructionsView = findViewById(R.id.tv_instructions);
