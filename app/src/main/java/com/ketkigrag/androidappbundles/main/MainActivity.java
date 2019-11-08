@@ -110,7 +110,7 @@ public class MainActivity extends BaseSplitActivity implements MainContract.View
     public void displayButtons() {
         instructionsView.setVisibility(View.VISIBLE);
         dynamicFeature1View.setVisibility(View.VISIBLE);
-        uninstallDynamicFeaturesView.setVisibility(View.VISIBLE);
+        uninstallDynamicFeaturesView.setVisibility(View.GONE);
 
         progressBar.setVisibility(View.GONE);
         progressTextView.setVisibility(View.GONE);

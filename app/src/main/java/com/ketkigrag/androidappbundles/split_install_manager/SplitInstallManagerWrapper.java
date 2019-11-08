@@ -5,8 +5,10 @@ import com.google.android.play.core.splitinstall.SplitInstallException;
 import com.google.android.play.core.splitinstall.SplitInstallManager;
 import com.google.android.play.core.splitinstall.SplitInstallRequest;
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener;
+import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.android.play.core.tasks.OnSuccessListener;
+import com.google.android.play.core.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,22 +24,23 @@ public class SplitInstallManagerWrapper {
     }
 
     public void loadAndLaunchModule(final String moduleName) {
-        Log.v("ketki","splitInstallManager.getInstalledModules(): "+splitInstallManager.getInstalledModules()+" moduleName: "+moduleName);
+        Log.v("ketki", "splitInstallManager.getInstalledModules(): " + splitInstallManager.getInstalledModules() + " moduleName: " + moduleName);
         if (splitInstallManager.getInstalledModules().contains(moduleName)) {
             listener.onModuleInstallSuccess(new ArrayList(Arrays.asList(moduleName)));
         } else {
             // Create request to install a feature module by name. Load and install the requested feature module.
-            splitInstallManager.startInstall(SplitInstallRequest.newBuilder().addModule(moduleName).build()).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(Exception exception) {
-                    listener.onModuleInstallationFailed(moduleName, getErrorMessage(moduleName, ((SplitInstallException) exception).getErrorCode()));
-                }
-            }).addOnSuccessListener(new OnSuccessListener<Integer>() {
-                @Override
-                public void onSuccess(Integer integer) {
-                    listener.onModuleInstallSuccess(new ArrayList(Arrays.asList(moduleName)));
-                }
-            });
+            splitInstallManager.startInstall(SplitInstallRequest.newBuilder().addModule(moduleName).build())
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(Exception exception) {
+                            listener.onModuleInstallationFailed(moduleName, getErrorMessage(moduleName, ((SplitInstallException) exception).getErrorCode()));
+                        }
+                    })
+                    .addOnCompleteListener(new OnCompleteListener<Integer>() {
+                        @Override
+                        public void onComplete(Task<Integer> task) {
+                        }
+                    });
 
             listener.onModuleInstalling(moduleName, getInstallingMessage(moduleName));
         }
