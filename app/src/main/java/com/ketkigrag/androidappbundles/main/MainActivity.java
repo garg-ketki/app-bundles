@@ -28,6 +28,7 @@ public class MainActivity extends BaseSplitActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+        Log.v("ketki","inside: "+DummyModel.text1);
     }
 
     private void initialize() {
