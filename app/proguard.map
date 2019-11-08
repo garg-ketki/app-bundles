@@ -1,0 +1,89 @@
+com.google.gson.internal.LinkedTreeMap -> dcs:
+    java.util.Comparator NATURAL_ORDER -> g
+    java.util.Comparator comparator -> a
+    com.google.gson.internal.LinkedTreeMap$Node root -> b
+    int size -> c
+    int modCount -> d
+    com.google.gson.internal.LinkedTreeMap$Node header -> e
+    com.google.gson.internal.LinkedTreeMap$EntrySet entrySet -> h
+    com.google.gson.internal.LinkedTreeMap$KeySet keySet -> i
+    boolean $assertionsDisabled -> f
+    60:61:void <init>() -> <init>
+    48:75:void <init>(java.util.Comparator) -> <init>
+    78:78:int size() -> size
+    82:83:java.lang.Object get(java.lang.Object) -> get
+    87:87:boolean containsKey(java.lang.Object) -> containsKey
+    91:97:java.lang.Object put(java.lang.Object,java.lang.Object) -> put
+    101:108:void clear() -> clear
+    111:112:java.lang.Object remove(java.lang.Object) -> remove
+    122:180:com.google.gson.internal.LinkedTreeMap$Node find(java.lang.Object,boolean) -> a
+    186:188:com.google.gson.internal.LinkedTreeMap$Node findByObject(java.lang.Object) -> a
+    202:204:com.google.gson.internal.LinkedTreeMap$Node findByEntry(java.util.Map$Entry) -> a
+    208:208:boolean equal(java.lang.Object,java.lang.Object) -> a
+    218:274:void removeInternal(com.google.gson.internal.LinkedTreeMap$Node,boolean) -> a
+    277:281:com.google.gson.internal.LinkedTreeMap$Node removeInternalByKey(java.lang.Object) -> b
+    285:301:void replaceInParent(com.google.gson.internal.LinkedTreeMap$Node,com.google.gson.internal.LinkedTreeMap$Node) -> a
+    311:368:void rebalance(com.google.gson.internal.LinkedTreeMap$Node,boolean) -> b
+    374:396:void rotateLeft(com.google.gson.internal.LinkedTreeMap$Node) -> a
+    402:424:void rotateRight(com.google.gson.internal.LinkedTreeMap$Node) -> b
+    430:431:java.util.Set entrySet() -> entrySet
+    435:436:java.util.Set keySet() -> keySet
+    628:628:java.lang.Object writeReplace() -> writeReplace
+    38:40:void <clinit>() -> <clinit>
+com.google.gson.internal.LinkedTreeMap$1 -> dcs$1:
+    40:40:void <init>() -> <init>
+    42:42:int compare(java.lang.Comparable,java.lang.Comparable) -> a
+    40:40:int compare(java.lang.Object,java.lang.Object) -> compare
+com.google.gson.internal.LinkedTreeMap$EntrySet -> dct:
+    com.google.gson.internal.LinkedTreeMap this$0 -> a
+    560:560:void <init>(com.google.gson.internal.LinkedTreeMap) -> <init>
+    562:562:int size() -> size
+    566:566:java.util.Iterator iterator() -> iterator
+    574:574:boolean contains(java.lang.Object) -> contains
+    578:587:boolean remove(java.lang.Object) -> remove
+    591:592:void clear() -> clear
+com.google.gson.internal.LinkedTreeMap$EntrySet$1 -> dct$1:
+    com.google.gson.internal.LinkedTreeMap$EntrySet this$1 -> a
+    566:566:void <init>(com.google.gson.internal.LinkedTreeMap$EntrySet) -> <init>
+    568:568:java.util.Map$Entry next() -> a
+    566:566:java.lang.Object next() -> next
+com.google.gson.internal.LinkedTreeMap$KeySet -> dcu:
+    com.google.gson.internal.LinkedTreeMap this$0 -> a
+    595:595:void <init>(com.google.gson.internal.LinkedTreeMap) -> <init>
+    597:597:int size() -> size
+    601:601:java.util.Iterator iterator() -> iterator
+    609:609:boolean contains(java.lang.Object) -> contains
+    613:613:boolean remove(java.lang.Object) -> remove
+    617:618:void clear() -> clear
+com.google.gson.internal.LinkedTreeMap$KeySet$1 -> dcu$1:
+    com.google.gson.internal.LinkedTreeMap$KeySet this$1 -> a
+    601:601:void <init>(com.google.gson.internal.LinkedTreeMap$KeySet) -> <init>
+    603:603:java.lang.Object next() -> next
+com.google.gson.internal.LinkedTreeMap$LinkedTreeMapIterator -> dcv:
+    com.google.gson.internal.LinkedTreeMap$Node next -> b
+    com.google.gson.internal.LinkedTreeMap$Node lastReturned -> c
+    int expectedModCount -> d
+    com.google.gson.internal.LinkedTreeMap this$0 -> e
+    527:532:void <init>(com.google.gson.internal.LinkedTreeMap) -> <init>
+    535:535:boolean hasNext() -> hasNext
+    539:547:com.google.gson.internal.LinkedTreeMap$Node nextNode() -> b
+    551:557:void remove() -> remove
+com.google.gson.internal.LinkedTreeMap$Node -> dcw:
+    com.google.gson.internal.LinkedTreeMap$Node parent -> a
+    com.google.gson.internal.LinkedTreeMap$Node left -> b
+    com.google.gson.internal.LinkedTreeMap$Node right -> c
+    com.google.gson.internal.LinkedTreeMap$Node next -> d
+    com.google.gson.internal.LinkedTreeMap$Node prev -> e
+    java.lang.Object key -> f
+    java.lang.Object value -> g
+    int height -> h
+    450:453:void <init>() -> <init>
+    456:464:void <init>(com.google.gson.internal.LinkedTreeMap$Node,java.lang.Object,com.google.gson.internal.LinkedTreeMap$Node,com.google.gson.internal.LinkedTreeMap$Node) -> <init>
+    467:467:java.lang.Object getKey() -> getKey
+    471:471:java.lang.Object getValue() -> getValue
+    475:477:java.lang.Object setValue(java.lang.Object) -> setValue
+    482:487:boolean equals(java.lang.Object) -> equals
+    491:492:int hashCode() -> hashCode
+    496:496:java.lang.String toString() -> toString
+    503:509:com.google.gson.internal.LinkedTreeMap$Node first() -> a
+    516:522:com.google.gson.internal.LinkedTreeMap$Node last() -> b

@@ -182,6 +182,16 @@ export_file(
   visibility = ['PUBLIC'],
 )
 
+export_file(
+    name = "proguard.map",
+    mode = "reference",
+    visibility = ["PUBLIC"],
+)
+export_file(
+    name = "proguard-rules.pro",
+    mode = "reference",
+    visibility = ["PUBLIC"],
+)
 
 android_bundle(
     name = 'bundle_release',
@@ -193,6 +203,8 @@ android_bundle(
     package_type = 'release',
     manifest_skeleton = ':manifest_lib_release',
     module_manifest_skeleton = ':manifest_module_lib_release',
+    android_sdk_proguard_config = "none",
+    proguard_config = "//app:proguard-rules.pro",
     manifest_entries = {
     'placeholders': {
     'applicationId': 'com.ketkigrag.androidappbundles',
@@ -206,7 +218,8 @@ android_bundle(
     ],
     deps = [
         '//features/feature1:module_root',
-        ':base_root'
+        ':base_root',
+        '//app:proguard.map'
     ],
     visibility = [
         'PUBLIC',
