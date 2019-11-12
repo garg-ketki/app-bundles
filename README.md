@@ -1,3 +1,4 @@
+![Dynamic Feature Module](demo.gif)
 # **Run project with Gradle**
 1. **Apk**
     - ./gradlew installDebug
@@ -80,6 +81,5 @@ To fix it, add latest buck version in the build.gradle file:_
 # **Project Details on playstore**
 - Play store App URL: https://play.google.com/store/apps/details?id=com.ketkigrag.androidappbundles
 - Opt-in URL for Internal test track: https://play.google.com/apps/internaltest/4700301388081364543
-
 
 
